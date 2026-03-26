@@ -96,6 +96,6 @@ public class Ruleta {
             if (historialAciertos[i]) aciertos++;
         }
         System.out.println("Rondas: " + historialSize + " | Total: " + total);
-        System.out.println("Aciertos: " + aciertos + " (" + (historialSize > 0 ? (aciertos * 100 / historialSize) : 0) + "%)");
+        System.out.println("Aciertos: " + aciertos);
     }
 }
