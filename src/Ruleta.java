@@ -38,10 +38,11 @@ public class Ruleta {
     }
 
     public static void ejecutarOpcion(int opcion, Scanner in) {
-        if (opcion == 1) iniciarRonda(in);
-        else if (opcion == 2) mostrarEstadisticas();
-        else if (opcion != 3) System.out.println("Invalido");
+        if (opcion == 1) {iniciarRonda(in);}
+        else if (opcion == 2) {mostrarEstadisticas();}
+        else if (opcion != 3) {System.out.println("Invalido");}
     }
+
 
     public static void iniciarRonda(Scanner in) {
         char tipo = leerTipoApuesta(in);
@@ -95,8 +96,7 @@ public class Ruleta {
             total += historialApuestas[i];
             if (historialAciertos[i]) aciertos++;
         }
-        System.out.println("Rondas: " + historialSize + " | Total: " + total);
+        System.out.println("Rondas: " + historialSize + " | Total apostado: " + total);
         System.out.println("Aciertos: " + aciertos);
     }
-    
 }
