@@ -98,4 +98,5 @@ public class Ruleta {
         System.out.println("Rondas: " + historialSize + " | Total: " + total);
         System.out.println("Aciertos: " + aciertos);
     }
+    
 }
