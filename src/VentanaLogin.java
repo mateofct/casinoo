@@ -14,9 +14,9 @@ public class VentanaLogin {
     private JButton btnRegistrar;
 
     public VentanaLogin() {
-        frame = new JFrame("CASINO BLACK CAT");
-        txtUsuario = new JTextField();
-        txtClave = new JPasswordField();
+        frame = new JFrame("Casino Black Cat");
+        txtUsuario = new JTextField(10);
+        txtClave = new JPasswordField(10);
         btnIngresar = new JButton("Ingresar");
         btnRegistrar = new JButton("Registrar");
 
@@ -74,8 +74,11 @@ public class VentanaLogin {
         if (nombre.equals("")) {
             JOptionPane.showMessageDialog(null, "Error de credenciales");
         } else {
-            JOptionPane.showMessageDialog(null, "Iniciado " + nombre);
+            JOptionPane.showMessageDialog(null, "Iniciado" + nombre);
             frame.dispose();
+
+            VentanaSaludo saludo = new VentanaSaludo(nombre);
+            saludo.mostrar();
         }
     }
 
