@@ -13,6 +13,7 @@ public class User {
         return this.username.equals(u) && this.password.equals(p);
     }
 
+
     public String getNombre() {
         return nombre;
     }
