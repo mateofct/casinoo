@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaLogin {
-    public static final List<User> USUARIOS = new ArrayList<>();
+    public static final List<Usuario> USUARIOS = new ArrayList<>();
 
     private JFrame frame;
     private JTextField txtUsuario;
@@ -26,7 +26,7 @@ public class VentanaLogin {
 
     private void inicializarUsuarios() {
         if (USUARIOS.isEmpty()) {
-            User admin = new User("admin", "1234", "Administrador");
+            Usuario admin = new Usuario("admin", "1234", "Administrador");
             USUARIOS.add(admin);
         }
     }
@@ -84,7 +84,7 @@ public class VentanaLogin {
 
     private String validarCredenciales(String u, String p) {
         for (int i = 0; i < USUARIOS.size(); i++) {
-            User actual = USUARIOS.get(i);
+            Usuario actual = USUARIOS.get(i);
             if (actual.validarCredenciales(u, p)) {
                 return actual.getNombre();
             }
