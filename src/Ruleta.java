@@ -12,7 +12,6 @@ public class Ruleta {
 
     public Ruleta() {
         this(0);
-        this.rng = new Random();
     }
 
     public int getSaldo() {
@@ -20,7 +19,7 @@ public class Ruleta {
     }
 
     public void deposito(int monto) {
-        if (monto > 0) {;
+        if (monto > 0) {
             this.saldo += monto;
             System.out.println("Depósito exitoso. Saldo actual: " + this.saldo);
         } else {
