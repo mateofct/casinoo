@@ -77,8 +77,8 @@ public class VentanaLogin {
             JOptionPane.showMessageDialog(null, "Iniciado" + nombre);
             frame.dispose();
 
-            VentanaSaludo saludo = new VentanaSaludo(nombre);
-            saludo.mostrar();
+            VentanaMenu menu = new VentanaMenu(nombre);
+            menu.mostrarMenu();
         }
     }
 
