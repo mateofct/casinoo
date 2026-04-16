@@ -19,3 +19,22 @@ public void registrarUsuario(String u, String p, String n){
     this.usuariosRegistrados.add(nuevoUsuario);
     this.usuarioActual = nuevoUsuario;
 }
+
+public boolean iniciarSesion(String u, String p){
+    for (Usuario user : usuariosRegistrados){
+        if (user.validarCredenciales(u, p)){
+            this.usuarioActual = user;
+            return true;
+        }
+    return false;
+    }
+}
+
+public boolean hayUsuario(){
+    return usuarioActual != null;
+}
+
+public String getNombreUsuario(){
+    return hayUsuario() ? usuarioActual.getNombre() : "";
+}
+
