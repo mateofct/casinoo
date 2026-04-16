@@ -48,6 +48,13 @@ public class Ruleta {
         }
     }
 
+    private boolean esRojo(int n){
+        for (int r: numerosRojos){
+            if (r == n) return true;
+        }
+        return false;
+    }
+
     public static void mostrarMenu() {
         System.out.println("CASINO BLACK CAT");
         System.out.println("1.- Iniciar Ronda");
@@ -83,11 +90,6 @@ public class Ruleta {
         return in.next().toUpperCase().charAt(0);
     }
 
-
-    public static boolean esRojo(int n) {
-        for (int r : numerosRojos) if (r == n) return true;
-        return false;
-    }
 
     public static void registrarResultado(int n, int a, boolean ac) {
         if (historialSize < MAX_HISTORIAL) {
