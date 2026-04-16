@@ -15,6 +15,19 @@ public class Ruleta {
         this.rng = new Random();
     }
 
+    public int getSaldo() {
+        return this.saldo;
+    }
+
+    public void deposito(int monto) {
+        if (monto > 0) {;
+            this.saldo += monto;
+            System.out.println("Depósito exitoso. Saldo actual: " + this.saldo);
+        } else {
+            System.out.println("Monto inválido para depósito.");
+        }
+    }
+
     public static void mostrarMenu() {
         System.out.println("CASINO BLACK CAT");
         System.out.println("1.- Iniciar Ronda");
