@@ -23,4 +23,11 @@ public class Usuario {
     public String getNombre() {
         return nombre;
     }
+    public String getUsername() {return username;}
+
+    public void setNombre(String nombre) {
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            this.nombre = nombre;
+        }
+    }
 }
