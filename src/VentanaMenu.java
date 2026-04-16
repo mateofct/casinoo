@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaMenu {
-    public static final List<User> USUARIOS = new ArrayList<>();
+    public static final List<Usuario> USUARIOS = new ArrayList<>();
 
     private JFrame frame;
     private JButton btnInicio;
@@ -26,7 +26,7 @@ public class VentanaMenu {
 
     private void inicializarUsuarios() {
         if (USUARIOS.isEmpty()) {
-            User admin = new User("admin", "1234", "Administrador");
+            Usuario admin = new Usuario("admin", "1234", "Administrador");
             USUARIOS.add(admin);
         }
     }

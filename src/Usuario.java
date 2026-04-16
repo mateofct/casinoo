@@ -1,12 +1,18 @@
-public class User {
+public class Usuario {
     private String username;
     private String password;
     private String nombre;
 
-    public User(String username, String password, String nombre) {
+    public Usuario(String username, String password, String nombre) {
         this.username = username;
         this.password = password;
         this.nombre = nombre;
+    }
+
+    public Usuario(){
+        this.username = "invitado";
+        this.password = "";
+        this.nombre = "Invitado";
     }
 
     public boolean validarCredenciales(String u, String p) {

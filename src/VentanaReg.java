@@ -59,7 +59,7 @@ public class VentanaReg {
     }
 
     private void guardarUsuario(String u, String p, String n) {
-        VentanaLogin.USUARIOS.add(new User(u, p, n));
+        VentanaLogin.USUARIOS.add(new Usuario(u, p, n));
         JOptionPane.showMessageDialog(null, "Registrado!");
         frame.dispose();
         new VentanaLogin().mostrarVentana();
