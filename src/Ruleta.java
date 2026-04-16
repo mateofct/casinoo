@@ -28,6 +28,26 @@ public class Ruleta {
         }
     }
 
+    public int girarRuleta() {
+        return rng.nextInt(37);
+    }
+
+    public boolean evaluarResultado(int numero, TipoApuesta tipo) {
+        if (numero == 0) return false;
+        switch (tipo) {
+            case ROJO:
+                return esRojo(numero);
+            case NEGRO:
+                return !esRojo(numero);
+            case PAR:
+                return numero % 2 == 0;
+            case IMPAR:
+                return numero % 2 != 0;
+            default:
+                return false;
+        }
+    }
+
     public static void mostrarMenu() {
         System.out.println("CASINO BLACK CAT");
         System.out.println("1.- Iniciar Ronda");
@@ -63,17 +83,6 @@ public class Ruleta {
         return in.next().toUpperCase().charAt(0);
     }
 
-    public static int girarRuleta() {
-        return rng.nextInt(37);
-    }
-
-    public static boolean evaluarResultado(int n, char tipo) {
-        if (n == 0) return false;
-        if (tipo == 'R') return esRojo(n);
-        if (tipo == 'N') return !esRojo(n);
-        if (tipo == 'P') return n % 2 == 0;
-        return n % 2 != 0;
-    }
 
     public static boolean esRojo(int n) {
         for (int r : numerosRojos) if (r == n) return true;
