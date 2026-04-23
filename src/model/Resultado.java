@@ -12,4 +12,20 @@ public class Resultado {
         this.montoApuesta = montoApuesta;
         this.ganar = ganar;
     }
+
+    public int getNumeroGanador() {
+        return numeroGanador;
+    }
+
+    public TipoApuesta getTipoApuesta() {
+        return tipoApuesta;
+    }
+
+    public int getMontoApuesta() {
+        return montoApuesta;
+    }
+
+    public boolean isGanar() {
+        return ganar;
+    }
 }
