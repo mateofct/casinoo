@@ -1,17 +1,13 @@
 package visual;
 
-import model.Ruleta;
-import model.Usuario;
-
+import controller.SessionController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class VentanaMenu {
-    public static final List<Usuario> USUARIOS = new ArrayList<>();
-
+    private SessionController session;
     private JFrame frame;
     private JButton btnInicio;
     private JButton btnJugar;
@@ -19,7 +15,8 @@ public class VentanaMenu {
     private JButton btnSalir;
 
 
-    public VentanaMenu(String nombre) {
+    public VentanaMenu(SessionController session) {
+        this.session = session;
         frame = new JFrame("Casino Black Cat");
         btnInicio = new JButton("Inicio");
         btnJugar = new JButton("Jugar");
@@ -27,13 +24,6 @@ public class VentanaMenu {
         btnSalir = new JButton("Salir");
 
         configurarVentana();
-    }
-
-    private void inicializarUsuarios() {
-        if (USUARIOS.isEmpty()) {
-            Usuario admin = new Usuario("admin", "1234", "Administrador");
-            USUARIOS.add(admin);
-        }
     }
 
     private void configurarVentana() {
