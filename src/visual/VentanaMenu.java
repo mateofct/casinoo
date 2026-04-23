@@ -1,20 +1,20 @@
+package visual;
+
+import controller.SessionController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VentanaMenu {
-    public static final List<Usuario> USUARIOS = new ArrayList<>();
-
+    private SessionController session;
     private JFrame frame;
     private JButton btnInicio;
     private JButton btnJugar;
     private JButton btnHistorial;
     private JButton btnSalir;
 
-
-    public VentanaMenu(String nombre) {
+    public VentanaMenu(SessionController session) {
+        this.session = session;
         frame = new JFrame("Casino Black Cat");
         btnInicio = new JButton("Inicio");
         btnJugar = new JButton("Jugar");
@@ -22,13 +22,6 @@ public class VentanaMenu {
         btnSalir = new JButton("Salir");
 
         configurarVentana();
-    }
-
-    private void inicializarUsuarios() {
-        if (USUARIOS.isEmpty()) {
-            Usuario admin = new Usuario("admin", "1234", "Administrador");
-            USUARIOS.add(admin);
-        }
     }
 
     private void configurarVentana() {
@@ -48,7 +41,7 @@ public class VentanaMenu {
     private void agregarEventos() {
         btnInicio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                abrirInicio();
+                JOptionPane.showMessageDialog(null, "Iniciado");
             }
         });
 
@@ -75,20 +68,23 @@ public class VentanaMenu {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    void abrirInicio() {
+
+    private void abrirJugar() {
         frame.dispose();
-        new VentanaMenu("Nombre").mostrarMenu();
+        new VentanaRuleta(session).mostrar();
     }
-    void abrirJugar() {
-        //frame.dispose();
-        new Ruleta().mostrarMenu();
+
+    private void abrirHistorial() {
+        JOptionPane.showMessageDialog(null, "Historial de apuestas");
     }
-    void abrirHistorial() {
-        new Ruleta().mostrarEstadisticas();
-        new VentanaMenu("Nombre").mostrarMenu();
+
+    private void abrirSalir() {
+        cerrarSesion();
     }
-    void abrirSalir() {
+
+    private void cerrarSesion() {
+        session.cerrarSesion();
         frame.dispose();
-        return;
+        new VentanaLogin(session).mostrarVentana();
     }
 }

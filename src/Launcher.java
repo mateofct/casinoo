@@ -1,6 +1,11 @@
+import visual.VentanaLogin;
+import controller.SessionController;
+
 public class Launcher {
     public static void main(String[] args) {
-        VentanaLogin login = new VentanaLogin();
+        SessionController session = new SessionController();
+
+        VentanaLogin login = new VentanaLogin(session);
         login.mostrarVentana();
     }
 }

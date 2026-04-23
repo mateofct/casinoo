@@ -1,39 +1,32 @@
+package visual;
+
+import controller.SessionController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VentanaLogin {
-    public static final List<Usuario> USUARIOS = new ArrayList<>();
-
+    private SessionController session;
     private JFrame frame;
     private JTextField txtUsuario;
     private JPasswordField txtClave;
     private JButton btnIngresar;
     private JButton btnRegistrar;
 
-    public VentanaLogin() {
+    public VentanaLogin(SessionController session) {
+        this.session = session;
         frame = new JFrame("Casino Black Cat");
         txtUsuario = new JTextField(10);
         txtClave = new JPasswordField(10);
         btnIngresar = new JButton("Ingresar");
         btnRegistrar = new JButton("Registrar");
 
-        inicializarUsuarios();
         configurarVentana();
-    }
-
-    private void inicializarUsuarios() {
-        if (USUARIOS.isEmpty()) {
-            Usuario admin = new Usuario("admin", "1234", "Administrador");
-            USUARIOS.add(admin);
-        }
     }
 
     private void configurarVentana() {
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Usuario:"));
+        panel.add(new JLabel("model.Usuario:"));
         panel.add(txtUsuario);
         panel.add(new JLabel("Clave:"));
         panel.add(txtClave);
@@ -69,31 +62,22 @@ public class VentanaLogin {
     private void login() {
         String u = txtUsuario.getText();
         String p = new String(txtClave.getPassword());
-        String nombre = validarCredenciales(u, p);
+        boolean loginExitoso = session.iniciarSesion(u,p);
 
-        if (nombre.equals("")) {
+        if (!loginExitoso) {
             JOptionPane.showMessageDialog(null, "Error de credenciales");
         } else {
+            String nombre = session.getNombreUsuario();
             JOptionPane.showMessageDialog(null, "Iniciado" + nombre);
             frame.dispose();
 
-            VentanaMenu menu = new VentanaMenu(nombre);
+            VentanaMenu menu = new VentanaMenu(session);
             menu.mostrarMenu();
         }
     }
 
-    private String validarCredenciales(String u, String p) {
-        for (int i = 0; i < USUARIOS.size(); i++) {
-            Usuario actual = USUARIOS.get(i);
-            if (actual.validarCredenciales(u, p)) {
-                return actual.getNombre();
-            }
-        }
-        return "";
-    }
-
     void abrirRegistro() {
         frame.dispose();
-        new VentanaReg().mostrar();
+        new VentanaReg(session).mostrar();
     }
 }

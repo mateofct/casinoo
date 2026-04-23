@@ -1,15 +1,21 @@
+package visual;
+
+import controller.SessionController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaReg {
+    private SessionController session;
     private JFrame frame;
     private JTextField txtUsuario;
     private JPasswordField txtClave;
     private JTextField txtNombre;
     private JButton btnGuardar;
 
-    public VentanaReg() {
+    public VentanaReg(SessionController session) {
+        this.session = session;
         frame = new JFrame("Registro");
         txtUsuario = new JTextField(10);
         txtClave = new JPasswordField(10);
@@ -21,7 +27,7 @@ public class VentanaReg {
 
     private void configurarVentana() {
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Usuario:")); panel.add(txtUsuario);
+        panel.add(new JLabel("model.Usuario:")); panel.add(txtUsuario);
         panel.add(new JLabel("Clave:")); panel.add(txtClave);
         panel.add(new JLabel("Nombre:")); panel.add(txtNombre);
         panel.add(btnGuardar);
@@ -51,17 +57,17 @@ public class VentanaReg {
         String p = new String(txtClave.getPassword());
         String n = txtNombre.getText();
 
-        if (u.equals("") || p.equals("") || n.equals("")) {
-            JOptionPane.showMessageDialog(null, "Incompleto");
+        if (u.isEmpty() || p.isEmpty() || n.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ingrese todos los campos");
         } else {
-            guardarUsuario(u, p, n);
+            try {
+                session.registrarUsuario(u,p,n);
+                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+                frame.dispose();
+                new VentanaLogin(session).mostrarVentana();
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }
-
-    private void guardarUsuario(String u, String p, String n) {
-        VentanaLogin.USUARIOS.add(new Usuario(u, p, n));
-        JOptionPane.showMessageDialog(null, "Registrado!");
-        frame.dispose();
-        new VentanaLogin().mostrarVentana();
     }
-}
