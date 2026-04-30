@@ -26,7 +26,7 @@ public class VentanaLogin {
 
     private void configurarVentana() {
         JPanel panel = new JPanel();
-        panel.add(new JLabel("model.Usuario:"));
+        panel.add(new JLabel("Usuario:"));
         panel.add(txtUsuario);
         panel.add(new JLabel("Clave:"));
         panel.add(txtClave);
