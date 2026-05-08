@@ -68,7 +68,7 @@ public class VentanaLogin {
             JOptionPane.showMessageDialog(null, "Error de credenciales");
         } else {
             String nombre = session.getNombreUsuario();
-            JOptionPane.showMessageDialog(null, "Iniciado" + nombre);
+            JOptionPane.showMessageDialog(null, "Iniciado: " + nombre);
             frame.dispose();
 
             VentanaMenu menu = new VentanaMenu(session);
