@@ -59,7 +59,8 @@ public class VentanaHistorial {
                     .append(" -Tipo: ").append(r.getTipoApuesta()).append("\n")
                     .append(" -Monto: $").append(r.getMontoApuesta()).append("\n")
                     .append(" -Número Ganador: ").append(r.getNumeroGanador()).append("\n")
-                    .append(" -Resultado: ").append(r.isGanar() ? "GANADA" : "PERDIDA").append("\n");
+                    .append(" -Resultado: ").append(r.isGanar() ? "GANADA" : "PERDIDA").append("\n")
+                    .append(" -----------------\n");
         }
         txtHistorial.setText(sb.toString());
     }

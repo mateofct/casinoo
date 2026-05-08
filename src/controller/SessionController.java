@@ -1,25 +1,29 @@
 package controller;
 
 import model.Usuario;
+import model.Estadistica;
 import java.util.List;
 import java.util.ArrayList;
 
 public class SessionController {
     private List<Usuario> usuariosRegistrados;
     private Usuario usuarioActual;
+    private Estadistica estadisticaUsuario;
 
     public SessionController() {
-    this.usuariosRegistrados = new ArrayList<>();
-    this.usuariosRegistrados.add(new Usuario("admin", "1234", "Administrador"));
+        this.usuariosRegistrados = new ArrayList<>();
+        this.usuariosRegistrados.add(new Usuario("admin", "1234", "Administrador"));
+        this.estadisticaUsuario = new Estadistica();
     }
 
     public void registrarUsuario(String u, String p, String n){
-    if (u == null && p == null && n == null){
-        throw new IllegalArgumentException("No se puede registrar un usuario.");
-    }
-    Usuario nuevoUsuario = new Usuario(u, p, n);
-    this.usuariosRegistrados.add(nuevoUsuario);
-    this.usuarioActual = nuevoUsuario;
+        if (u == null || p == null || n == null){
+            //cambio importante, en vez de AND uso OR porque si era con AND los tres campos tenian que estar vacíos para que arrojase error.
+            throw new IllegalArgumentException("No se puede registrar un usuario.");
+        }
+        Usuario nuevoUsuario = new Usuario(u, p, n);
+        this.usuariosRegistrados.add(nuevoUsuario);
+        this.usuarioActual = nuevoUsuario;
     }
 
     public boolean iniciarSesion(String u, String p){
@@ -44,8 +48,12 @@ public class SessionController {
         return usuarioActual;
     }
 
+    public Estadistica getEstadistica() {
+        return this.estadisticaUsuario;
+    }
+
     public void cerrarSesion(){
         this.usuarioActual = null;
+        this.estadisticaUsuario.reiniciarEstadisticas();
     }
 }
-

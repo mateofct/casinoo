@@ -25,7 +25,7 @@ public class VentanaRuleta {
         this.session = session;
         this.ruleta = new RuletaController();
 
-        frame = new JFrame("Ruleta / Jugador:" + session.getNombreUsuario());
+        frame = new JFrame("Ruleta / Jugador: " + session.getNombreUsuario());
         lblSaldo = new JLabel();
         txtMonto = new JTextField(10);
 
@@ -89,8 +89,11 @@ public class VentanaRuleta {
             TipoApuesta tipo = TipoApuesta.valueOf(seleccion);
 
             Resultado res = ruleta.realizarApuesta(monto, tipo);
+
+            // Inyección de datos a Historial y Estadística
             if (session.hayUsuario()) {
                 session.getUsuarioActual().agregarResultado(res);
+                session.getEstadistica().registrarResultado(res);
             }
 
             String mensaje = "Numero ganador: " + res.getNumeroGanador() + "\n";
@@ -103,7 +106,7 @@ public class VentanaRuleta {
             JOptionPane.showMessageDialog(null, mensaje);
             refrescarSaldo();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese un monto válido de apuesta");
+            JOptionPane.showMessageDialog(null, "Ingrese un monto valido de apuesta");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -119,7 +122,7 @@ public class VentanaRuleta {
                 JOptionPane.showMessageDialog(null, "Saldo recargado");
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese un monto válido de recarga");
+            JOptionPane.showMessageDialog(null, "Ingrese un monto valido de recarga");
         }
     }
 
