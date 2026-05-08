@@ -27,10 +27,13 @@ public class RuletaController {
             throw new IllegalArgumentException("Saldo insuficiente.");
         }
 
+        modeloRuleta.retirar(monto);
         int numeroGanador = modeloRuleta.girarRuleta();
         boolean ganar = modeloRuleta.evaluarResultado(numeroGanador, tipo);
+        if (ganar) {
+            modeloRuleta.deposito(monto * 2);
+        }
 
-        Resultado resultadoRonda = new Resultado(numeroGanador, tipo, monto, ganar);
-        return resultadoRonda;
+        return new Resultado(numeroGanador, tipo, monto, ganar);
     }
 }
