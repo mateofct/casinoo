@@ -29,6 +29,12 @@ public class Ruleta {
         }
     }
 
+    public void retirar(int monto) {
+        if (monto > 0 && this.saldo >= monto) {
+            this.saldo -= monto;
+        }
+    }
+
     public int girarRuleta() {
         return rng.nextInt(37);
     }
