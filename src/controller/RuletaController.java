@@ -19,7 +19,7 @@ public class RuletaController {
         modeloRuleta.deposito(monto);
     }
 
-    public Resultado realizarApuesta(ApuestaBase apuesta) {
+    public Resultado realizarApuesta(ApuestaBase apuesta, String nombreJugador){
         int monto = apuesta.getMonto();
 
         if (monto <= 0) {
@@ -31,12 +31,13 @@ public class RuletaController {
 
         modeloRuleta.retirar(monto);
         int numeroGanador = modeloRuleta.girarRuleta();
+
         boolean ganar = modeloRuleta.evaluarResultado(numeroGanador, apuesta);
 
         if (ganar) {
             modeloRuleta.deposito(monto * 2);
         }
 
-        return new Resultado(numeroGanador, apuesta.getEtiqueta(), monto, ganar);
+        return new Resultado(numeroGanador, apuesta.getEtiqueta(), monto, ganar, nombreJugador);
     }
 }

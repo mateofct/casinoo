@@ -8,10 +8,11 @@ public class Estadistica {
     private int victorias;
     private int rachaActual;
     private int rachaMaxima;
-
     private Map<String, Integer> conteoApuestas;
+    private IRepositorioResultados repositorio;
 
-    public Estadistica() {
+    public Estadistica(IRepositorioResultados repositorio) {
+        this.repositorio = repositorio;
         this.totalJugadas = 0;
         this.victorias = 0;
         this.rachaActual = 0;
@@ -20,8 +21,9 @@ public class Estadistica {
     }
 
     public void registrarResultado(Resultado r) {
-        totalJugadas++;
+        repositorio.registrar(r);
 
+        totalJugadas++;
         if (r.isGanar()) {
             victorias++;
             rachaActual++;
@@ -31,26 +33,20 @@ public class Estadistica {
         } else {
             rachaActual = 0;
         }
+
         String tipoApuesta = r.getTipoApuesta();
         conteoApuestas.put(tipoApuesta, conteoApuestas.getOrDefault(tipoApuesta, 0) + 1);
     }
 
-    public int getTotalJugadas() {
-        return totalJugadas;
-    }
-
-    public int getVictorias() {
-        return victorias;
-    }
-
-    public int getRachaMaxima() {
-        return rachaMaxima;
-    }
+    public int getTotalJugadas() { return totalJugadas; }
+    public int getVictorias() { return victorias; }
+    public int getRachaMaxima() { return rachaMaxima; }
 
     public double getPorcentajeVictorias() {
         if (totalJugadas == 0) return 0.0;
         return ((double) victorias / totalJugadas) * 100;
     }
+
     public String getTipoMasJugado() {
         String favorito = "Ninguno";
         int max = 0;
@@ -61,13 +57,5 @@ public class Estadistica {
             }
         }
         return favorito;
-    }
-
-    public void reiniciarEstadisticas() {
-        this.totalJugadas = 0;
-        this.victorias = 0;
-        this.rachaActual = 0;
-        this.rachaMaxima = 0;
-        this.conteoApuestas.clear();
     }
 }

@@ -102,7 +102,8 @@ public class VentanaRuleta {
                 apuesta = new ApuestaImpar(monto);
             }
 
-            Resultado res = ruleta.realizarApuesta(apuesta);
+            String nombre = session.getNombreUsuario();
+            Resultado res = ruleta.realizarApuesta(apuesta, nombre);
 
             if (session.hayUsuario()) {
                 session.getUsuarioActual().agregarResultado(res);
