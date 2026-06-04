@@ -39,20 +39,10 @@ public class Ruleta {
         return rng.nextInt(37);
     }
 
-    public boolean evaluarResultado(int numero, TipoApuesta tipo) {
+    public boolean evaluarResultado(int numero, ApuestaBase apuesta) {
         if (numero == 0) return false;
-        switch (tipo) {
-            case ROJO:
-                return esRojo(numero);
-            case NEGRO:
-                return !esRojo(numero);
-            case PAR:
-                return numero % 2 == 0;
-            case IMPAR:
-                return numero % 2 != 0;
-            default:
-                return false;
-        }
+        String color = esRojo(numero) ? "Rojo" : "Negro";
+        return apuesta.acierta(numero, color);
     }
 
     private boolean esRojo(int n){

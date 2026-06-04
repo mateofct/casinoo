@@ -2,7 +2,6 @@ package visual;
 
 import controller.SessionController;
 import model.Estadistica;
-import model.TipoApuesta;
 import javax.swing.*;
 import java.awt.*;
 
@@ -46,8 +45,11 @@ public class VentanaEstadistica {
 
     private void cargarEstadisticas() {
         Estadistica est = session.getEstadistica();
-        TipoApuesta masJugado = est.getTipoMasJugado();
-        String tipo = (masJugado != null) ? masJugado.toString() : "Ninguno";
+
+        String tipo = est.getTipoMasJugado();
+        if (tipo == null || tipo.isEmpty()) {
+            tipo = "Ninguno";
+        }
 
         String info = "Estadísticas\n"
                 + "Total de apuestas: " + est.getTotalJugadas() + "\n"

@@ -8,7 +8,8 @@ public class Estadistica {
     private int victorias;
     private int rachaActual;
     private int rachaMaxima;
-    private Map<TipoApuesta, Integer> conteoApuestas;
+
+    private Map<String, Integer> conteoApuestas;
 
     public Estadistica() {
         this.totalJugadas = 0;
@@ -30,8 +31,8 @@ public class Estadistica {
         } else {
             rachaActual = 0;
         }
-        //freq
-        conteoApuestas.put(r.getTipoApuesta(), conteoApuestas.getOrDefault(r.getTipoApuesta(), 0) + 1);
+        String tipoApuesta = r.getTipoApuesta();
+        conteoApuestas.put(tipoApuesta, conteoApuestas.getOrDefault(tipoApuesta, 0) + 1);
     }
 
     public int getTotalJugadas() {
@@ -50,11 +51,10 @@ public class Estadistica {
         if (totalJugadas == 0) return 0.0;
         return ((double) victorias / totalJugadas) * 100;
     }
-
-    public TipoApuesta getTipoMasJugado() {
-        TipoApuesta favorito = null;
+    public String getTipoMasJugado() {
+        String favorito = "Ninguno";
         int max = 0;
-        for (Map.Entry<TipoApuesta, Integer> entry : conteoApuestas.entrySet()) {
+        for (Map.Entry<String, Integer> entry : conteoApuestas.entrySet()) {
             if (entry.getValue() > max) {
                 max = entry.getValue();
                 favorito = entry.getKey();

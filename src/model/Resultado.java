@@ -2,11 +2,11 @@ package model;
 
 public class Resultado {
     private int numeroGanador;
-    private TipoApuesta tipoApuesta;
+    private String tipoApuesta;
     private int montoApuesta;
     private boolean ganar;
 
-    public Resultado(int numeroGanador, TipoApuesta tipoApuesta, int montoApuesta, boolean ganar) {
+    public Resultado(int numeroGanador, String tipoApuesta, int montoApuesta, boolean ganar) {
         this.numeroGanador = numeroGanador;
         this.tipoApuesta = tipoApuesta;
         this.montoApuesta = montoApuesta;
@@ -17,7 +17,7 @@ public class Resultado {
         return numeroGanador;
     }
 
-    public TipoApuesta getTipoApuesta() {
+    public String getTipoApuesta() {
         return tipoApuesta;
     }
 
