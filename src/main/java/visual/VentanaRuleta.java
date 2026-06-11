@@ -3,7 +3,11 @@ package visual;
 import controller.SessionController;
 import controller.RuletaController;
 import model.Resultado;
-import model.TipoApuesta;
+import model.ApuestaBase;
+import model.ApuestaRojo;
+import model.ApuestaNegro;
+import model.ApuestaPar;
+import model.ApuestaImpar;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +29,7 @@ public class VentanaRuleta {
         this.session = session;
         this.ruleta = new RuletaController();
 
-        frame = new JFrame("Ruleta / Jugador:" + session.getNombreUsuario());
+        frame = new JFrame("Ruleta / Jugador: " + session.getNombreUsuario());
         lblSaldo = new JLabel();
         txtMonto = new JTextField(10);
 
@@ -83,13 +87,30 @@ public class VentanaRuleta {
     }
 
     private void apostar() {
-        try{
+        try {
             int monto = Integer.parseInt(txtMonto.getText());
             String seleccion = cboTipoApuesta.getSelectedItem().toString().toUpperCase();
-            TipoApuesta tipo = TipoApuesta.valueOf(seleccion);
 
-            Resultado res = ruleta.realizarApuesta(monto, tipo);
-            String mensaje = "Numero ganador: " + res.getNumeroGanador() + "\n";
+            ApuestaBase apuesta = null;
+            if (seleccion.equals("ROJO")) {
+                apuesta = new ApuestaRojo(monto);
+            } else if (seleccion.equals("NEGRO")) {
+                apuesta = new ApuestaNegro(monto);
+            } else if (seleccion.equals("PAR")) {
+                apuesta = new ApuestaPar(monto);
+            } else if (seleccion.equals("IMPAR")) {
+                apuesta = new ApuestaImpar(monto);
+            }
+
+            String nombre = session.getNombreUsuario();
+            Resultado res = ruleta.realizarApuesta(apuesta, nombre);
+
+            if (session.hayUsuario()) {
+                session.getUsuarioActual().agregarResultado(res);
+                session.getEstadistica().registrarResultado(res);
+            }
+
+            String mensaje = "Número ganador: " + res.getNumeroGanador() + "\n";
             if (res.isGanar()) {
                 mensaje += "Ganaste";
             } else {
@@ -99,7 +120,7 @@ public class VentanaRuleta {
             JOptionPane.showMessageDialog(null, mensaje);
             refrescarSaldo();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese un monto valido de apuesta");
+            JOptionPane.showMessageDialog(null, "Ingrese un monto válido de apuesta");
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -115,7 +136,7 @@ public class VentanaRuleta {
                 JOptionPane.showMessageDialog(null, "Saldo recargado");
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Ingrese un monto valido de recarga");
+            JOptionPane.showMessageDialog(null, "Ingrese un monto válido de recarga");
         }
     }
 

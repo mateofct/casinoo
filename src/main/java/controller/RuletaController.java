@@ -2,13 +2,13 @@ package controller;
 
 import model.Resultado;
 import model.Ruleta;
-import model.TipoApuesta;
+import model.ApuestaBase;
 
 public class RuletaController {
     private Ruleta modeloRuleta;
 
     public RuletaController(){
-        this.modeloRuleta = new Ruleta(500); //consultar cuanto tiene q ser el saldo inicial.
+        this.modeloRuleta = new Ruleta(500);
     }
 
     public int getSaldoActual(){
@@ -19,7 +19,12 @@ public class RuletaController {
         modeloRuleta.deposito(monto);
     }
 
-    public Resultado realizarApuesta(int monto, TipoApuesta tipo){
+    public Resultado realizarApuesta(ApuestaBase apuesta, String nombreJugador) {
+        if (apuesta == null) {
+            throw new IllegalArgumentException("Apuesta requerida");
+        }
+        int monto = apuesta.getMonto();
+
         if (monto <= 0) {
             throw new IllegalArgumentException("La apuesta no puede ser 0.");
         }
@@ -27,10 +32,15 @@ public class RuletaController {
             throw new IllegalArgumentException("Saldo insuficiente.");
         }
 
+        modeloRuleta.retirar(monto);
         int numeroGanador = modeloRuleta.girarRuleta();
-        boolean ganar = modeloRuleta.evaluarResultado(numeroGanador, tipo);
 
-        Resultado resultadoRonda = new Resultado(numeroGanador, tipo, monto, ganar);
-        return resultadoRonda;
+        boolean ganar = modeloRuleta.evaluarResultado(numeroGanador, apuesta);
+
+        if (ganar) {
+            modeloRuleta.deposito(monto * 2);
+        }
+
+        return new Resultado(numeroGanador, apuesta.getEtiqueta(), monto, ganar, nombreJugador);
     }
 }

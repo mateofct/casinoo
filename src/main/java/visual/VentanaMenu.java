@@ -75,7 +75,8 @@ public class VentanaMenu {
     }
 
     private void abrirHistorial() {
-        JOptionPane.showMessageDialog(null, "Historial de apuestas");
+        frame.dispose();
+        new VentanaHistorial(session).mostrar();
     }
 
     private void abrirSalir() {

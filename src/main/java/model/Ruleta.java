@@ -8,6 +8,9 @@ public class Ruleta {
     private int[] numerosRojos = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36};
 
     public Ruleta(int saldoInicio) {
+        if (saldoInicio < 0) {
+            throw new IllegalArgumentException("Saldo inicial inválido");
+        }
         this.saldo = saldoInicio;
         this.rng = new Random();
     }
@@ -29,24 +32,20 @@ public class Ruleta {
         }
     }
 
+    public void retirar(int monto) {
+        if (monto > 0 && this.saldo >= monto) {
+            this.saldo -= monto;
+        }
+    }
+
     public int girarRuleta() {
         return rng.nextInt(37);
     }
 
-    public boolean evaluarResultado(int numero, TipoApuesta tipo) {
+    public boolean evaluarResultado(int numero, ApuestaBase apuesta) {
         if (numero == 0) return false;
-        switch (tipo) {
-            case ROJO:
-                return esRojo(numero);
-            case NEGRO:
-                return !esRojo(numero);
-            case PAR:
-                return numero % 2 == 0;
-            case IMPAR:
-                return numero % 2 != 0;
-            default:
-                return false;
-        }
+        String color = esRojo(numero) ? "Rojo" : "Negro";
+        return apuesta.acierta(numero, color);
     }
 
     private boolean esRojo(int n){

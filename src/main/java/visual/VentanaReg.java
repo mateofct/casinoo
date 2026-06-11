@@ -27,7 +27,7 @@ public class VentanaReg {
 
     private void configurarVentana() {
         JPanel panel = new JPanel();
-        panel.add(new JLabel("model.Usuario:")); panel.add(txtUsuario);
+        panel.add(new JLabel("Usuario:")); panel.add(txtUsuario);
         panel.add(new JLabel("Clave:")); panel.add(txtClave);
         panel.add(new JLabel("Nombre:")); panel.add(txtNombre);
         panel.add(btnGuardar);
