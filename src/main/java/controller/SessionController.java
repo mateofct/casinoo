@@ -29,7 +29,10 @@ public class SessionController {
         this.usuarioActual = nuevoUsuario;
     }
 
-    public boolean iniciarSesion(String u, String p){
+    public boolean iniciarSesion(String u, String p) {
+        if (u == null || p == null) {
+            return false;
+        }
         for (Usuario user : usuariosRegistrados){
             if (user.validarCredenciales(u, p)){
                 this.usuarioActual = user;

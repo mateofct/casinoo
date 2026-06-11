@@ -19,7 +19,10 @@ public class RuletaController {
         modeloRuleta.deposito(monto);
     }
 
-    public Resultado realizarApuesta(ApuestaBase apuesta, String nombreJugador){
+    public Resultado realizarApuesta(ApuestaBase apuesta, String nombreJugador) {
+        if (apuesta == null) {
+            throw new IllegalArgumentException("Apuesta requerida");
+        }
         int monto = apuesta.getMonto();
 
         if (monto <= 0) {

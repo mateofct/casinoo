@@ -21,6 +21,9 @@ public class Estadistica {
     }
 
     public void registrarResultado(Resultado r) {
+        if (r == null) {
+            return;
+        }
         repositorio.registrar(r);
 
         totalJugadas++;
